@@ -90,8 +90,8 @@ class ViewController: UIViewController {
     //geordnete k-Partitionen von n
     func orderedP(n: Int, k: Int)->Int
     {
-        if(k>n){
-            return -1
+        if(k>n || k<1 || n<1){
+            return 0
         }
         let return_value = binomialCoefficient(n-1, choose: k-1)
         return return_value
@@ -130,19 +130,28 @@ class ViewController: UIViewController {
         
         
         //Iterativ
+        if n==k || k==1{
+            return 1
+        }
+        if k==0 || k>n{
+            return 0
+        }
+
+        
         let maxj = n-k
         var arr = [Int]()
-        
+
         for i in 0...maxj{
             arr.insert(1, at: i)
         }
-        
         for i in 2...k{
             for j in 1...maxj
             {
                 arr[j] += i*arr[j-1]
+                print(arr[j])
             }
         }
+        print(arr)
         return arr[maxj]
     }
     //Stirlingzahl 1. Art
@@ -163,8 +172,7 @@ class ViewController: UIViewController {
     
     
     override func viewDidLoad() {
-        ergebnisLabel.layer.masksToBounds = true
-        ergebnisLabel.layer.cornerRadius = 10
+
         zahl1.layer.cornerRadius = 5
         zahl2.layer.cornerRadius = 5
         operatorSC.layer.cornerRadius = 5
